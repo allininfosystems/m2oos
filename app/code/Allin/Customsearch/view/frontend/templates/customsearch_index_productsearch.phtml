@@ -1,0 +1,95 @@
+<?php if(isset($_POST['product_row']) && $_POST['product_row']==1){ ?>
+
+	
+		<?php 
+		if(isset($_POST['product_id'])){
+			$productid = $_POST['product_id'] ; 
+			$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+			$product = $objectManager->create('Magento\Catalog\Model\Product')->load($productid);
+		?>
+
+			<tr class="ajax-tr">
+				<td>
+					<!--<label class="productsearch-lbl">Item:</label>-->
+					<input type="text" value="<?php echo $product->getData('name');?>" class="productsearch-cls" name="productsearch" placeholder="Enter productsearch"/>
+					<div class="loader" style="display:none;"></div>
+					<div class="result"></div>
+				 </td>
+				<td>
+				<?php
+					//How to resize image in any phtml file using helper
+					$_imageHelper = \Magento\Framework\App\ObjectManager::getInstance()->get('Magento\Catalog\Helper\Image');
+					$imageUrl = $_imageHelper->init($product, 'small_image', ['type'=>'small_image'])->keepAspectRatio(true)->resize('100','100')->getUrl();
+					?>
+					<img src="<?php echo $imageUrl;?>"/>
+					
+				</td>
+				<td>
+						<?php echo $product->getData('sku');?>
+				</td>
+				
+				<td>
+					<?php echo $product->getData('name');?>
+				</td>
+				
+				<td>
+					<?php if ($product->isAvailable()): ?>
+						<div class="stock available"><span><?= /* @escapeNotVerified */ __('In stock') ?></span></div>
+					<?php else: ?>
+						<div class="stock unavailable"><span><?= /* @escapeNotVerified */ __('Out of stock') ?></span></div>
+					<?php endif; ?>
+				</td>
+				<td>
+					<?php if(!empty($product->getEta())):?>
+						<?php echo  substr($product->getEta(), 0, 10) ; ?>
+					<?php endif;?>
+				</td>
+				<td>
+					<?php if (!$product->isSaleable()){ ?>
+						<div class="block newsletter stocknotification">
+							<?php 
+								$storeManager = $objectManager->get('\Magento\Store\Model\StoreManagerInterface');
+								$customerSession = $objectManager->create('Magento\Customer\Model\Session');
+							?>
+							<input style = "display:none" name="email" type="email" id="email" value="<?php if($customerSession->isLoggedIn()) { echo  $customerSession->getCustomer()->getEmail(); } ?>" placeholder="<?php echo __('Enter your e-mail') ?>" data-validate="{required:true,'validate-email':true}"/>
+							<span class="notify-me-cls"><?php echo __('Notify Me'); ?></span>
+						</div>
+					<?php } ?> 
+					<!-- Notification code end here-->
+				</td>
+				<td>
+				<input type="number" min="1" readonly="true" class="productsearch-qty-box qty" product_code="<?php echo $productid;?>" value="1" name="custom_qty"/>
+				<span class="down-cls">-</span>
+				<span class="up-cls">+</span>
+				</td>
+		   </tr>
+	  <?php } ?>
+	
+<?php }else{
+
+		if(isset($_POST['searchVal'])){
+					$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+					$query = $_POST['searchVal'];
+					$custom_collection = $objectManager->create('Magento\Catalog\Model\Product')->getCollection()->addFieldToFilter('name', array('like' => '%'.$query.'%'));
+					/* echo '<pre>';print_r($custom_collection->getData());
+					die;
+					return $custom_collection;
+					echo '<u>' */
+		?>
+					<ul class="custom-search-cls">
+						<?php foreach($custom_collection->getData() as $ddldata){ ?>
+							<li>
+								<span class="<?php echo 'product_'.$ddldata['entity_id'];?>">
+									<?php echo $ddldata['name'];?>
+								</span>
+							</li>
+						<?php } ?>
+					</ul>
+
+		<?php } die; ?>
+
+	
+<?php } ?>
+
+
+

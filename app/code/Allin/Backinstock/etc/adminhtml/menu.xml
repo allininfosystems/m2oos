@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../Magento/Backend/etc/menu.xsd">
+    <menu>
+        <add id="Allin_Backinstock::parent" title="Backinstock" module="Allin_Backinstock" sortOrder="100" resource="Allin_Backinstock::parent"/>
+		<add id="Allin_Backinstock::backinstock" title="Allin Backinstock" module="Allin_Backinstock" sortOrder="20" parent="Allin_Backinstock::parent" action="backinstock/backinstock" resource="Allin_Backinstock::backinstock"/>
+
+    </menu>
+</config>

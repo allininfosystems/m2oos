@@ -1,0 +1,72 @@
+<?php
+$_objectManager = \Magento\Framework\App\ObjectManager::getInstance(); //instance of\Magento\Framework\App\ObjectManager
+$storeManager = $_objectManager->get('Magento\Store\Model\StoreManagerInterface'); 
+$currentStore = $storeManager->getStore();
+$baseUrl = $currentStore->getBaseUrl();
+
+$explodeVar = explode(' ',$_GET['q']);
+$query = implode('+',$explodeVar);
+?>
+
+<div class="search-place-order">
+  <a href="<?php echo $baseUrl; ?>/catalogsearch/result/filter/?q=<?php echo $query;?>">Place Order</a>
+   <h2> Back in stock</h2>
+</div><!-- search-place-order -->
+		<?php 
+		
+		$objectManager =  \Magento\Framework\App\ObjectManager::getInstance();  
+		$resource = $objectManager->get('Magento\Framework\App\ResourceConnection');
+		$connection = $resource->getConnection();
+		$tableName = $resource->getTableName('backinstock');
+
+		//$sql = "SELECT p_id,newdate FROM ".$tableName." ";	
+		$sql = "SELECT * FROM ".$tableName." WHERE `newdate` >= DATE_SUB(CURDATE(),INTERVAL 7 DAY)";
+		
+		$resultAll = $connection->fetchAll($sql);
+		//echo count($resultAll);die('testws');
+		?>
+        
+		<div id="owl-demo">		 
+		 <?php 
+		 $i=1;
+		foreach($resultAll as $result ){
+			$productid = $result['p_id'];
+			$product = $objectManager->create('Magento\Catalog\Model\Product')->load($productid);       				
+			$_imageHelper = \Magento\Framework\App\ObjectManager::getInstance()->get('Magento\Catalog\Helper\Image');
+			$imageUrl = $_imageHelper->init($product, 'small_image', ['type'=>'small_image'])->keepAspectRatio(true)->resize('268','268')->getUrl();
+		?>
+		
+           <?php if($i%4==1){ ?>
+			<div class="item">
+		   <?php } ?>
+				<div class="item-custom">
+					<img src="<?php echo $imageUrl;?>" alt="Owl Image">
+					<p><a href=""><?php echo $product->getName(); ?></a></p>
+				</div><!-- item-custom -->
+		   <?php if($i%4==0){ ?>
+			</div><!-- item -->
+		   <?php } ?>
+             
+        
+
+		<?php $i++;} ?>
+		</div>
+		
+		
+		
+		<script type="text/javascript">
+          require(['jquery','OwlCarousel'],function($){
+          $(window).load(function() {
+           $("#owl-demo").owlCarousel({
+                   navigation: false, // Show next and prev buttons
+                   navText:["<",">"], //show prev next
+                   loop: true,
+                   autoplay: true, //Set AutoPlay  
+                   autoplayHoverPause: true, //stop when mouse on carousel
+                   items : 1,
+                   autoPlay : 5000,
+                   pagination:false
+         });
+       });
+   });
+</script>

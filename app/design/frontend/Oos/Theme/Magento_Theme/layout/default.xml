@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+	
+	 
+	    
+        <referenceContainer name="main" htmlClass="searchpage" />
+	  
+	   
+	
+        <referenceContainer name="header.panel">
+            <block class="Magento\Framework\View\Element\Html\Links" name="header.links">
+                <arguments>
+                    <argument name="css_class" xsi:type="string">header links</argument>
+                </arguments>
+            </block>
+			<container name="custom_top_links"  htmlTag="div" htmlClass="custom_top_links">
+				        <block class="Magento\Framework\View\Element\Template" name="custom_links" template="Magento_Theme::html/toplinks.phtml"/>
+				</container> 
+        </referenceContainer>
+        <referenceBlock name="logo">
+            <arguments>
+                <argument name="logo_img_width" xsi:type="number">148</argument>
+                <argument name="logo_img_height" xsi:type="number">43</argument>
+            </arguments>
+        </referenceBlock>
+        <referenceContainer name="footer">
+            <block class="Magento\Store\Block\Switcher" name="store_switcher" as="store_switcher" after="footer_links" template="Magento_Store::switch/stores.phtml"/>
+        </referenceContainer>
+        <referenceBlock name="report.bugs" remove="true"/>
+        <move element="copyright" destination="before.body.end"/>
+		
+		<referenceBlock name="top.links">
+			<referenceBlock name="register-link" remove="true" />           <!--for Create Account Link-->
+			 <referenceBlock name="authorization-link" remove="true" />     <!--for Sign In Link  -->
+			<referenceBlock name="wish-list-link" remove="true" />          <!--for WishList Link-->
+			<referenceBlock name="my-account-link" remove="true" />         <!--for My Account Link-->
+		</referenceBlock>
+
+    </body>
+</page>
