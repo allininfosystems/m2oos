@@ -1,0 +1,174 @@
+<?php $objectmanager = \Magento\Framework\App\ObjectManager::getInstance(); $storeManager = $objectmanager->get('\Magento\Store\Model\StoreManagerInterface'); $baseUrl = $storeManager->getStore()->getBaseUrl(); $customerSession = $objectmanager->get('Magento\Customer\Model\Session'); if($customerSession->isLoggedIn()) { $customerId = $customerSession->getCustomer()->getId(); $objectManager = \Magento\Framework\App\ObjectManager::getInstance(); $customerObj = $objectManager->create('Magento\Customer\Model\Customer')->load($customerId); $billingAddressId = $customerObj->getDefaultBilling(); $shippingID = $customerObj->getDefaultShipping(); $billingAddress = $objectManager->create('Magento\Customer\Model\Address')->load($billingAddressId); $shippingAddress = $objectManager->create('Magento\Customer\Model\Address')->load($shippingID); echo "<div class='create-address'>"; echo "<div class='billing-address'><h2>Bill to</h2>"; echo '<h3>'.$billingAddress->getFirstname().$billingAddress->getLastname()."</h3>"; echo '<p>'.$billingAddress->getCity()."</p>"; echo '<p>'.$billingAddress->getPostcode()."</p>"; echo '<p>'.$billingAddress['street']."</p>"; echo "<h4>T:".$billingAddress->getTelephone()."</h4>"; echo "</div>"; echo "<div class='shipping-address'><h2>Ship to</h2>"; echo '<h3>'.$shippingAddress->getFirstname().$shippingAddress->getLastname()."</h3>"; echo '<p>'.$shippingAddress->getCity()."</p>"; echo '<p>'.$shippingAddress->getPostcode()."</p>"; echo '<p>'.$shippingAddress['street']."</p>"; echo "<h4>T:". $shippingAddress->getTelephone()."</h4>"; echo "</div>"; echo "</div>"; } ?> <div class="custom-msgdiv-cls"></div><div class="custom-search-form"><form action="" name="productsearch" method="post"><div id="container"><div class="productsearch-div"><table id="myTable" border="1"><tbody><tr><th>search</th><th>Picture</th><th>Item</th><th>Description</th><th>Stock Status</th><th>Next ETA</th><th>Notify</th><th>Qty</th></tr><tr class="fixed-cls"><td><input type="text" class="productsearch-cls" name="productsearch" placeholder="Enter Product Search"/><div class="loader" style="display:none;"></div><div class="result"></div></td><td>--</td><td>--</td><td>--</td><td>--</td><td>--</td><td>--</td><td>--</td></tr></tbody></table></div><div class="custom-textarea-cls"><textarea rows='3' cols='5' placeholder="Order Comment" id="txtarea-cls" ></textarea></div></div></form></div><div class="bckgrd-order-cls" style="display:none;"><div class="final-order-loader"></div></div><div class="placeorderbutton"><a href=="javascript:void(0);" id="custom-cart-checkout">Place Order</a></div><?php $objectManager = \Magento\Framework\App\ObjectManager::getInstance(); $storeManager = $objectManager->get('\Magento\Store\Model\StoreManagerInterface'); $baseurl= $storeManager->getStore()->getBaseUrl(); ?> <script type="text/javascript">
+
+
+   require(['jquery'],function($){
+	   
+
+jQuery(document).on("click", '#custom-cart-checkout', function(event) { 	
+	var count_ajax = 0;
+	jQuery( ".productsearch-qty-box.qty" ).each(function( index ) {
+		count_ajax = count_ajax+1;
+	});	
+	
+	var count_response = 0;
+	var flag = 0;
+	jQuery( ".productsearch-qty-box.qty" ).each(function( index ) {
+	  
+	  if(jQuery(this).attr('product_code')){
+		flag = 1;  
+	  }
+	  
+	  
+		var txtarea = jQuery("#txtarea-cls").val();
+		var product_data = {'product_id':jQuery(this).attr('product_code'), 'product_qty':jQuery( this ).val(), 'product_addtocart':1, 'comments':txtarea};
+	  
+		jQuery(".bckgrd-order-cls").show();
+		
+		jQuery.ajax({
+			type:"post",
+			url:"<?php echo $block->getUrl('customsearch/index/customcart');?>",
+			data:product_data,
+			dataType:'html',
+			success:function(data){
+				count_response = count_response+1;
+				
+				if(parseInt(count_ajax) == (count_response)){
+					alert('Add to cart successfuly.');	
+					
+					/****************************/
+								
+								jQuery(".bckgrd-order-cls").show();
+								jQuery.ajax({
+									type:"post",
+									url:"<?php echo $block->getUrl('customsearch/index/orderplace');?>",
+									data:product_data,
+									dataType:'html',
+									success:function(data){
+										
+										alert('Order have been successfuly');	
+										jQuery(".bckgrd-order-cls").hide();									
+										window.location.href = "<?php echo $baseurl;?>checkout/onepage/success";
+									}
+								});							
+
+					/****************************/
+				}
+			}
+		  });
+		  
+	  
+	});
+	
+	if(flag==0){
+		alert('Please search and add your items');
+	}
+	return false;
+});
+
+
+		$(document).on("click", '.up-cls', function(event) { 	
+			$(this).parent().find('.productsearch-qty-box.qty').val(parseInt($(this).parent().find('.productsearch-qty-box.qty').val())+1);
+		});
+
+
+		$(document).on("click", '.down-cls', function(event) { 
+		   if ($(this).parent().find('.productsearch-qty-box.qty').val() < 2) 
+           {
+               $(this).parent().find('.productsearch-qty-box.qty').val(parseInt($(this).parent().find('.productsearch-qty-box.qty').val()));
+			   return false;
+           }else{
+				$(this).parent().find('.productsearch-qty-box.qty').val(parseInt($(this).parent().find('.productsearch-qty-box.qty').val())-1);
+		   }
+		});
+	
+	
+
+		$(document).on("click", 'ul.custom-search-cls li span', function(event) { 
+			
+				var check_existance_record = $(this).parents().hasClass('ajax-tr');
+				var current_element = $(this);
+				var liCls = $(this).attr('class');
+				var res = liCls.split("_");
+				var product_id = res[1];
+				
+				$(this).parentsUntil('tr').find("div.loader").show();	
+				jQuery.ajax({
+					type:"post",
+					url:"<?php echo $block->getUrl('customsearch/index/productsearch');?>",
+					data:{'product_id':product_id,'product_row':1},
+					dataType:'html',
+					success:function(data){
+						if(check_existance_record === true){
+							current_element.closest("tr.ajax-tr").replaceWith(data);
+						}else{
+							$(data).insertBefore($(".fixed-cls"));
+						}
+						jQuery(".result").hide();
+						jQuery(".loader").hide();
+					}
+				  });
+		});
+		
+
+
+
+		$("body").on("keyup", '#myTable .productsearch-cls', function(event) { 
+				
+				var current_element = $(this);
+				var searchVal = $(this).val();
+				var dataString = 'searchVal='+searchVal;
+				if(searchVal!=""){
+							jQuery(".result").hide();
+							
+							
+							$(this).parentsUntil('tr').find("div.loader").show();	
+							jQuery.ajax({
+									type:"post",
+									url:"<?php echo $block->getUrl('customsearch/index/productsearch');?>",
+									data:dataString,
+									dataType:'html',
+									success:function(data){
+									current_element.parent( "td" ).find('div.result').html(data);
+									current_element.parent( "td" ).find('div.result').show();
+									jQuery(".loader").hide();
+								 }
+							});
+				}
+			
+		});
+		
+		
+		
+		$(document).on("click", '.block.newsletter.stocknotification .notify-me-cls', function(event) { 	
+		
+			
+			var emailData = $(this).closest('.block.newsletter.stocknotification').find("input[name='email']").val();
+			var productId = $(this).parents('tr.ajax-tr').find("input.productsearch-qty-box.qty").attr('product_code');
+			
+			
+							jQuery.ajax({
+									type:"post",
+									url:"<?php echo $baseUrl; ?>stocknotification/index/signup/product_id/"+productId,
+									data:{email:emailData,product_id:productId},
+									dataType:'json',
+									success:function(data){
+										var result = JSON.parse(data);
+										/* alert(result);
+										alert(result['msg']);
+										alert(result['flag']); */
+										$(".custom-msgdiv-cls").show();
+										if(result['flag']==1){
+											$(".custom-msgdiv-cls").html();
+											$(".custom-msgdiv-cls").html("<span class='green'>"+result['msg']+"</span>");
+										}
+										if(result['flag']==2){
+											$(".custom-msgdiv-cls").html();
+											$(".custom-msgdiv-cls").html("<span class='yellow'>"+result['msg']+"</span>");
+										}
+										setTimeout(function(){ $(".custom-msgdiv-cls").hide(); }, 50000);
+								 }
+							}); 
+			
+		});
+		
+   });</script><style> .final-order-loader { border: 16px solid #f3f3f3; border-radius: 50%; border-top: 16px solid #3498db; width: 120px; height: 120px; -webkit-animation: spin 2s linear infinite; /* Safari */ animation: spin 2s linear infinite; } .loader { border: 16px solid #f3f3f3; border-radius: 50%; border-top: 16px solid #3498db; width: 120px; height: 120px; -webkit-animation: spin 2s linear infinite; /* Safari */ animation: spin 2s linear infinite; } /* Safari */ @-webkit-keyframes spin { 0% { -webkit-transform: rotate(0deg); } 100% { -webkit-transform: rotate(360deg); } } @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }</style>
