@@ -1,0 +1,64 @@
+<?php
+/**
+ *
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+namespace Magento\Cms\Controller\Index;
+
+class Index extends \Magento\Framework\App\Action\Action
+{
+    /**
+     * @var \Magento\Framework\Controller\Result\ForwardFactory
+     */
+    protected $resultForwardFactory;
+
+    /**
+     * @param \Magento\Framework\App\Action\Context $context
+     * @param \Magento\Framework\Controller\Result\ForwardFactory $resultForwardFactory
+     */
+    public function __construct(
+        \Magento\Framework\App\Action\Context $context,
+        \Magento\Framework\Controller\Result\ForwardFactory $resultForwardFactory
+    ) {
+        $this->resultForwardFactory = $resultForwardFactory;
+        parent::__construct($context);
+    }
+
+    /**
+     * Renders CMS Home page
+     *
+     * @param string|null $coreRoute
+     * @return \Magento\Framework\Controller\Result\Forward
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     */
+    public function execute($coreRoute = null)
+    {
+		
+		$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+		$storeManager = $objectManager->get('\Magento\Store\Model\StoreManagerInterface');
+		$baseUrl= $storeManager->getStore()->getBaseUrl();								
+		$customerSession = $objectManager->create('Magento\Customer\Model\Session');
+
+		if ($customerSession->isLoggedIn()) {
+			
+			//header('Location: http://google.com');
+			echo '<script type="text/javascript">window.location = "http://119.82.68.252/m2oos/shop.html/"</script>';
+			return;
+		}
+        $pageId = $this->_objectManager->get(
+            \Magento\Framework\App\Config\ScopeConfigInterface::class
+        )->getValue(
+            \Magento\Cms\Helper\Page::XML_PATH_HOME_PAGE,
+            \Magento\Store\Model\ScopeInterface::SCOPE_STORE
+        );
+        $resultPage = $this->_objectManager->get(\Magento\Cms\Helper\Page::class)->prepareResultPage($this, $pageId);
+        if (!$resultPage) {
+            /** @var \Magento\Framework\Controller\Result\Forward $resultForward */
+            $resultForward = $this->resultForwardFactory->create();
+            $resultForward->forward('defaultIndex');
+            return $resultForward;
+        }
+        return $resultPage;
+    }
+}
