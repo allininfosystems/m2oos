@@ -5,7 +5,7 @@ $baseUrl      = $storeManager->getStore()->getBaseUrl();?>
 
 <div class="search-place-order">
   <a href="<?php echo $baseUrl.'customsearch'?>">Place Order</a>
-   <h2> Back in stock</h2>
+   <h2>Back in Stock</h2>
 </div><!-- search-place-order -->
 		<?php 
 		
@@ -13,24 +13,40 @@ $baseUrl      = $storeManager->getStore()->getBaseUrl();?>
 		$resource = $objectManager->get('Magento\Framework\App\ResourceConnection');
 		$connection = $resource->getConnection();
 		$tableName = $resource->getTableName('backinstock');
+		
 
 		//$sql = "SELECT p_id,newdate FROM ".$tableName." ";	
-		$sql = "SELECT * FROM ".$tableName." WHERE `newdate` >= DATE_SUB(CURDATE(),INTERVAL 7 DAY)";
+		$sql = "SELECT * FROM ".$tableName." WHERE `newdate` >= DATE_SUB(CURDATE(),INTERVAL 7 DAY) and oldqty!= newqty";
 		
 		$resultAll = $connection->fetchAll($sql);
-		//echo count($resultAll);die('testws');
+		//print_r($resultAll);die('testws');
+		
+		$saleableProductArr = array();
+		foreach($resultAll as $result ){
+			$productid = $result['p_id'];
+			$product = $objectManager->create('Magento\Catalog\Model\Product')->load($productid); 
+			if($product->isSaleable()){
+				array_push($saleableProductArr,$product->getId());	
+			}
+		}
 		?>
-        
+		
+		<?php if(!empty($saleableProductArr)){ ?>
 		<div id="owl-demo">		 
 		 <?php 
 		 $i=1;
-		foreach($resultAll as $result ){
-			$productid = $result['p_id'];
-			$product = $objectManager->create('Magento\Catalog\Model\Product')->load($productid);       				
+		 
+		foreach($saleableProductArr as $result ){
+			//$productid = $result['p_id'];
+			$product = $objectManager->create('Magento\Catalog\Model\Product')->load($result); 
+			
 			$_imageHelper = \Magento\Framework\App\ObjectManager::getInstance()->get('Magento\Catalog\Helper\Image');
 			$imageUrl = $_imageHelper->init($product, 'small_image', ['type'=>'small_image'])->keepAspectRatio(true)->resize('268','268')->getUrl();
+			$StockState = $objectManager->get('\Magento\CatalogInventory\Api\StockStateInterface');
+			$product->isSaleable();
+			
 		?>
-		
+		      
            <?php if($i%4==1){ ?>
 			<div class="item">
 		   <?php } ?>
@@ -41,11 +57,13 @@ $baseUrl      = $storeManager->getStore()->getBaseUrl();?>
 		   <?php if($i%4==0){ ?>
 			</div><!-- item -->
 		   <?php } ?>
-             
-        
-
-		<?php $i++;} ?>
+		<?php $i++; ?>
+		
+		 <?php } ?>
 		</div>
+		<?php }else{ ?>
+		<div class="item-custom">No Record Found.</div>
+		<?php } ?>
 		
 		
 		

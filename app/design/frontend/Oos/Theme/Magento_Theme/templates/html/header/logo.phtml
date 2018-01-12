@@ -27,3 +27,37 @@
 <?php else:?>
     </a>
 <?php endif?>
+
+
+
+<?php
+//For Pop-Up
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$request = $objectManager->get('Magento\Framework\App\Action\Context')->getRequest();
+$controllerName = $this->getRequest()->getControllerName();
+$actionName = $this->getRequest()->getActionName();
+?>
+
+<?php if($controllerName=='category'){?>
+
+<div id="ac-wrapper" style='display:none'>
+    <div id="popup">
+        <h2>Thankyou..</h2>
+        <p>You have successfully login with Glory Furniture.</p>
+        <input type="submit" name="submit" value="X" onClick="PopUp('hide')" />
+    </div><!-- popup -->
+</div><!-- ac-wrapper -->
+
+<script>
+function PopUp(hideOrshow) {
+    if (hideOrshow == 'hide') document.getElementById('ac-wrapper').style.display = "none";
+    else document.getElementById('ac-wrapper').removeAttribute('style');
+}
+window.onload = function () {
+    setTimeout(function () {
+        PopUp('show');
+    }, 50);
+}
+
+</script>
+<?php }?>

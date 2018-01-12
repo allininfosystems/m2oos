@@ -75,7 +75,7 @@
 					die;
 					return $custom_collection;
 					echo '<u>' */
-		?>
+		?>           <?php if(count($custom_collection)>0){?>
 					<ul class="custom-search-cls">
 						<?php foreach($custom_collection->getData() as $ddldata){ ?>
 							<li>
@@ -83,7 +83,10 @@
 									<?php echo $ddldata['name'];?>
 								</span>
 							</li>
-						<?php } ?>
+						
+						<?php }} else { ?>
+			<?php echo "no record found.";?>
+		<?php } ?>
 					</ul>
 
 		<?php } die; ?>

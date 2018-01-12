@@ -1,12 +1,1 @@
-define([
-    'jquery',
-    'jquery/ui',
-    'Magento_Search/form-mini' 
-], function($){
-    $.widget('test.quickSearch', $.mage.quickSearch, {
-        options: {
-            minSearchLength: 200,
-        },
-    });
-    return $.test.quickSearch;
-});
+/home/m2oos/app/design/frontend/Oos/Theme/Magento_Search/web/js/disableautosuggest.js

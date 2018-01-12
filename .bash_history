@@ -52,3 +52,20 @@ php bin/magento cache:clean
 php bin/magento cache:flush
 php bin/magento setup:static-content:deploy -f
 chmod -R 777 var pub/static
+pwd
+mysqldump -u m2oos -p m2oos>
+mysqldump -u m2oos -p m2oos >m2oos.sql
+mysqldump -u m2oos -p m2oos > m2oos.sql
+mysqldump -um2oos -p m2oos > m2oos.sql
+pwd
+rm -rf var/*
+rm -rf pub/static/*
+php bin/magento setup:static-content:deploy -f 
+chmod -R 777 var pub/static
+php bin/magento indexer:reindex
+m2oos@2017
+pwd
+rm -rf var/*
+rm -rf pub/static/*
+php bin/magento setup:static-content:deploy -f
+chmod -R 777 var pub/static
