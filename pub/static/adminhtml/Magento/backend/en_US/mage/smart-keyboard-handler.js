@@ -1,1 +1,1 @@
-/home/m2oos/lib/web/mage/smart-keyboard-handler.js
+D:/xampp7/htdocs/m2oos/lib/web/mage/smart-keyboard-handler.js

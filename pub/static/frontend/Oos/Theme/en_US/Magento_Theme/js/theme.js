@@ -1,1 +1,1 @@
-/home/m2oos/vendor/magento/theme-frontend-blank/Magento_Theme/web/js/theme.js
+D:/xampp7/htdocs/m2oos/vendor/magento/theme-frontend-blank/Magento_Theme/web/js/theme.js

@@ -1,1 +1,0 @@
-/home/m2oos/lib/web/mage/adminhtml/wysiwyg/widget.js

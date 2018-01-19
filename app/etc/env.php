@@ -17,8 +17,8 @@ return array (
       array (
         'host' => 'localhost',
         'dbname' => 'm2oos',
-        'username' => 'm2oos',
-        'password' => 'JXyVD9BJp6qLl4RJ',
+        'username' => 'root',
+        'password' => '',
         'active' => '1',
       ),
     ),

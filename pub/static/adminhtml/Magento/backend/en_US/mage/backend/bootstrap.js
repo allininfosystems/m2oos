@@ -1,1 +1,1 @@
-/home/m2oos/lib/web/mage/backend/bootstrap.js
+D:/xampp7/htdocs/m2oos/lib/web/mage/backend/bootstrap.js

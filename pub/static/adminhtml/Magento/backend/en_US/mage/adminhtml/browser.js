@@ -1,1 +1,0 @@
-/home/m2oos/lib/web/mage/adminhtml/browser.js

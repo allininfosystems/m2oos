@@ -1,1 +1,1 @@
-/home/m2oos/vendor/magento/module-ui/view/base/web/js/lib/logger/entry.js
+D:/xampp7/htdocs/m2oos/vendor/magento/module-ui/view/base/web/js/lib/logger/entry.js

@@ -1,1 +1,1 @@
-/home/m2oos/vendor/magento/module-customer/view/frontend/web/js/invalidation-processor.js
+D:/xampp7/htdocs/m2oos/vendor/magento/module-customer/view/frontend/web/js/invalidation-processor.js

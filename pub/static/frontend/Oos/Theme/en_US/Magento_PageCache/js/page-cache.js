@@ -1,1 +1,1 @@
-/home/m2oos/vendor/magento/module-page-cache/view/frontend/web/js/page-cache.js
+D:/xampp7/htdocs/m2oos/vendor/magento/module-page-cache/view/frontend/web/js/page-cache.js

@@ -1,1 +1,1 @@
-/home/m2oos/vendor/magento/module-ui/view/base/web/js/lib/view/utils/bindings.js
+D:/xampp7/htdocs/m2oos/vendor/magento/module-ui/view/base/web/js/lib/view/utils/bindings.js

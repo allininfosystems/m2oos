@@ -1,1 +1,1 @@
-/home/m2oos/lib/web/mage/requirejs/resolver.js
+D:/xampp7/htdocs/m2oos/lib/web/mage/requirejs/resolver.js

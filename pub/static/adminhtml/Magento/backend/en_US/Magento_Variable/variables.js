@@ -1,1 +1,0 @@
-/home/m2oos/vendor/magento/module-variable/view/adminhtml/web/variables.js

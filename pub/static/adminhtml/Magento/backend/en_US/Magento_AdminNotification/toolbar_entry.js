@@ -1,1 +1,1 @@
-/home/m2oos/vendor/magento/module-admin-notification/view/adminhtml/web/toolbar_entry.js
+D:/xampp7/htdocs/m2oos/vendor/magento/module-admin-notification/view/adminhtml/web/toolbar_entry.js

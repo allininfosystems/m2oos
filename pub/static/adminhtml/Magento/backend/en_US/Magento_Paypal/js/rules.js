@@ -1,1 +1,1 @@
-/home/m2oos/vendor/magento/module-paypal/view/adminhtml/web/js/rules.js
+D:/xampp7/htdocs/m2oos/vendor/magento/module-paypal/view/adminhtml/web/js/rules.js

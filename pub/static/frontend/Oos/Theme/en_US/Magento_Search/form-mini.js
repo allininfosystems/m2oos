@@ -1,1 +1,1 @@
-/home/m2oos/vendor/magento/module-search/view/frontend/web/form-mini.js
+D:/xampp7/htdocs/m2oos/vendor/magento/module-search/view/frontend/web/form-mini.js

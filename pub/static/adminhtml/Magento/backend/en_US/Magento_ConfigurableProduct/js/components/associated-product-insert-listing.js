@@ -1,1 +1,0 @@
-/home/m2oos/vendor/magento/module-configurable-product/view/adminhtml/web/js/components/associated-product-insert-listing.js

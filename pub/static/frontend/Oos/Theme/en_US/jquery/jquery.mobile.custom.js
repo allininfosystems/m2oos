@@ -1,1 +1,1 @@
-/home/m2oos/lib/web/jquery/jquery.mobile.custom.js
+D:/xampp7/htdocs/m2oos/lib/web/jquery/jquery.mobile.custom.js

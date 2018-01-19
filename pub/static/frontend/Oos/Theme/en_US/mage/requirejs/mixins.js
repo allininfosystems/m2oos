@@ -1,1 +1,1 @@
-/home/m2oos/lib/web/mage/requirejs/mixins.js
+D:/xampp7/htdocs/m2oos/lib/web/mage/requirejs/mixins.js

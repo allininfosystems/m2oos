@@ -1,1 +1,1 @@
-/home/m2oos/lib/web/jquery/jquery-ui.js
+D:/xampp7/htdocs/m2oos/lib/web/jquery/jquery-ui.js

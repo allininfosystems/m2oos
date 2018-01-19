@@ -78,9 +78,14 @@
 		?>           <?php if(count($custom_collection)>0){?>
 					<ul class="custom-search-cls">
 						<?php foreach($custom_collection->getData() as $ddldata){ ?>
+						<?php 
+						$productStockObj = $objectManager->create('Magento\CatalogInventory\Api\StockRegistryInterface')->getStockItem($ddldata['entity_id']);
+						//$getStockData = $productStockObj->getData();
+						//echo '<pre>';print_r($productStockObj->getData('qty'));die('test');
+						?>
 							<li>
 								<span class="<?php echo 'product_'.$ddldata['entity_id'];?>">
-									<?php echo $ddldata['name'];?>
+									<?php echo $ddldata['name'];?> (<?php echo floor($productStockObj->getData('qty')); ?>)
 								</span>
 							</li>
 						

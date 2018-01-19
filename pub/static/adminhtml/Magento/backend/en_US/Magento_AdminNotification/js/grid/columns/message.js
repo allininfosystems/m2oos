@@ -1,1 +1,1 @@
-/home/m2oos/vendor/magento/module-admin-notification/view/adminhtml/web/js/grid/columns/message.js
+D:/xampp7/htdocs/m2oos/vendor/magento/module-admin-notification/view/adminhtml/web/js/grid/columns/message.js

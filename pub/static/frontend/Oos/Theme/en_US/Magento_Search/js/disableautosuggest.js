@@ -1,1 +1,1 @@
-/home/m2oos/app/design/frontend/Oos/Theme/Magento_Search/web/js/disableautosuggest.js
+D:/xampp7/htdocs/m2oos/app/design/frontend/Oos/Theme/Magento_Search/web/js/disableautosuggest.js

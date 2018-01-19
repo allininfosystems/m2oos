@@ -1,10 +1,11 @@
 <?php
 return array (
-  'modules' =>
+  'modules' => 
   array (
     'Allin_Backinstock' => 1,
     'Allin_Customsearch' => 1,
     'Magento_Store' => 1,
+    'Allin_Popup' => 1,
     'Amasty_Base' => 1,
     'Magento_AdminNotification' => 1,
     'Magento_Directory' => 1,

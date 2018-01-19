@@ -1,1 +1,0 @@
-/home/m2oos/lib/web/tiny_mce/plugins/directionality/editor_plugin_src.js

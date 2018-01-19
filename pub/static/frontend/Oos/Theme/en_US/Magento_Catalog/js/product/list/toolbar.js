@@ -1,1 +1,1 @@
-/home/m2oos/vendor/magento/module-catalog/view/frontend/web/js/product/list/toolbar.js
+D:/xampp7/htdocs/m2oos/vendor/magento/module-catalog/view/frontend/web/js/product/list/toolbar.js

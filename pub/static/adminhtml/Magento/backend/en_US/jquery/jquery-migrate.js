@@ -1,1 +1,1 @@
-/home/m2oos/lib/web/jquery/jquery-migrate.js
+D:/xampp7/htdocs/m2oos/lib/web/jquery/jquery-migrate.js

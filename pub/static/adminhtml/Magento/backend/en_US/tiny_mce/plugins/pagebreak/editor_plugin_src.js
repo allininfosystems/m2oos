@@ -1,1 +1,0 @@
-/home/m2oos/lib/web/tiny_mce/plugins/pagebreak/editor_plugin_src.js

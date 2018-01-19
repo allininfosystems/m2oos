@@ -36,28 +36,49 @@ $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
 $request = $objectManager->get('Magento\Framework\App\Action\Context')->getRequest();
 $controllerName = $this->getRequest()->getControllerName();
 $actionName = $this->getRequest()->getActionName();
+
+
+$scopeConfig = $objectManager->create('Magento\Framework\App\Config\ScopeConfigInterface');
+$popup_title_field = 'configuration/details/title';
+$popup_description_field = 'configuration/details/description';
+$popup_title =  $scopeConfig->getValue($popup_title_field,\Magento\Store\Model\ScopeInterface::SCOPE_STORE);
+$popup_description =  $scopeConfig->getValue($popup_description_field,\Magento\Store\Model\ScopeInterface::SCOPE_STORE);
 ?>
 
-<?php if($controllerName=='category'){?>
+<?php if($controllerName=='category' && $actionName=='view'){?>
 
 <div id="ac-wrapper" style='display:none'>
     <div id="popup">
-        <h2>Thankyou..</h2>
-        <p>You have successfully login with Glory Furniture.</p>
+        <h2><?php echo $popup_title; ?></h2>
+        <p><?php echo $popup_description; ?></p>
         <input type="submit" name="submit" value="X" onClick="PopUp('hide')" />
     </div><!-- popup -->
 </div><!-- ac-wrapper -->
 
 <script>
+
 function PopUp(hideOrshow) {
     if (hideOrshow == 'hide') document.getElementById('ac-wrapper').style.display = "none";
     else document.getElementById('ac-wrapper').removeAttribute('style');
 }
-window.onload = function () {
-    setTimeout(function () {
-        PopUp('show');
-    }, 50);
+
+if(localStorage.getItem('popState') != 'shown'){
+	window.onload = function () {
+		setTimeout(function () {
+			PopUp('show');
+		}, 50);
+	}
+	localStorage.setItem('popState','shown');
 }
 
 </script>
 <?php }?>
+
+<?php $customerSession = $objectManager->create('Magento\Customer\Model\Session');
+if (!$customerSession->isLoggedIn()) { ?>
+
+<script>
+localStorage.setItem('popState','');
+</script>
+
+<?php } ?>

@@ -1,1 +1,1 @@
-/home/m2oos/lib/web/mage/ie-class-fixer.js
+D:/xampp7/htdocs/m2oos/lib/web/mage/ie-class-fixer.js

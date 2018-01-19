@@ -1,1 +1,1 @@
-/home/m2oos/vendor/magento/module-cookie/view/frontend/web/js/require-cookie.js
+D:/xampp7/htdocs/m2oos/vendor/magento/module-cookie/view/frontend/web/js/require-cookie.js

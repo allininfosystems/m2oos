@@ -1,1 +1,1 @@
-/home/m2oos/app/code/Allin/OwlCarousel/view/frontend/web/js/owl-carousel.js
+D:/xampp7/htdocs/m2oos/app/code/Allin/OwlCarousel/view/frontend/web/js/owl-carousel.js

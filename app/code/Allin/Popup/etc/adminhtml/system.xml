@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+	<system>
+		<tab id="popup" sortOrder="999" translate="label">
+			<label>PopUp</label>
+		</tab>
+		<section id="configuration" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label">
+			<label>Configuration</label>
+			<tab>popup</tab>
+			<resource>Allin_Popup::config_allin_popup</resource>
+			<group id="details" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label">
+				<label>Details</label>
+				<field id="title" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label" type="text">
+					<label>Title</label>
+					<comment/>
+				</field>
+				<field id="description" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label" type="textarea">
+					<label>Description</label>
+					<comment/>
+				</field>
+			</group>
+		</section>
+	</system>
+</config>
