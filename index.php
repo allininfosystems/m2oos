@@ -1,5 +1,5 @@
 <?php
-//die('deploy'); 
+die('deploy'); 
 /**
  * Application entry point
  *
