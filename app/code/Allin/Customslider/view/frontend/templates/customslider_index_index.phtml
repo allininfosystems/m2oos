@@ -1,0 +1,27 @@
+<?php 
+		$objectManager =  \Magento\Framework\App\ObjectManager::getInstance();  
+		$resource = $objectManager->get('Magento\Framework\App\ResourceConnection');
+		$connection = $resource->getConnection();
+		$tableName = $resource->getTableName('customslider');
+		$storeManager = $objectManager->get('Magento\Store\Model\StoreManagerInterface'); 
+        $currentStore = $storeManager->getStore();
+		$mediaUrl = $currentStore->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA);
+
+
+		$sql = "SELECT * FROM ".$tableName." ";		
+		 $resultAll = $connection->fetchAll($sql);		 
+		 foreach($resultAll as $result ){						
+		 ?>
+		<?php if(($result['status']==0) and ($result['customergroup']=='0')){?>
+		<img src="<?php echo $mediaUrl.$result['filename'];?>"/>
+		<?php 	} elseif(($result['status']==0) and ($result['customergroup']=='1')){?>
+				<img src="<?php echo $mediaUrl.$result['filename'];?>"/>
+		<?php }elseif(($result['status']==0) and ($result['customergroup']=='2')){?>
+		<img src="<?php echo $mediaUrl.$result['filename'];?>"/>
+		
+		 <?php }elseif(($result['status']==0) and ($result['customergroup']=='3')){?>
+		<img src="<?php echo $mediaUrl.$result['filename'];?>"/>
+		 <?php 	}else{?>
+			 
+			<?php echo  "NO slider image found.";?>
+		<?php  }}?>

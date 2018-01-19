@@ -1,0 +1,21 @@
+{
+    "name": "allin/module-customermessage",
+    "description": "Price",
+    "license": "proprietary",
+    "authors": [
+        {
+            "email": "info@mage2gen.com",
+            "name": "Mage2Gen"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Allin\\Customermessage\\": ""
+        },
+        "files": [
+            "registration.php"
+        ]
+    }
+}

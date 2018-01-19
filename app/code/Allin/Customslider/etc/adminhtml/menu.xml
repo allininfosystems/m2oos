@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../Magento/Backend/etc/menu.xsd">
+    <menu>
+        <add id="Allin_Customslider::parent" title="Customslider" module="Allin_Customslider" sortOrder="100" resource="Allin_Customslider::parent"/>
+		<add id="Allin_Customslider::customslider" title="Allin Customslider" module="Allin_Customslider" sortOrder="20" parent="Allin_Customslider::parent" action="customslider/customslider" resource="Allin_Customslider::customslider"/>
+
+    </menu>
+</config>
